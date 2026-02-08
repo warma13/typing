@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>汉字详细信息</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e8e8e8;
+        }
+
+        .fixed-buttons {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .back-link {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #f5f5f5;
+            color: #333;
+            border: 1px solid #e8e8e8;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-link:hover {
+            background-color: #e8e8e8;
+        }
+
+        .back-to-top {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #f5f5f5;
+            color: #333;
+            border: 1px solid #e8e8e8;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-to-top:hover {
+            background-color: #e8e8e8;
+        }
+
+        .char-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .char-display {
+            font-size: 72px;
+            font-weight: bold;
+            color: #1890ff;
+            margin-bottom: 20px;
+        }
+
+        .info-section {
+            margin-bottom: 30px;
+        }
+
+        .info-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e8e8e8;
+        }
+
+        .info-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #666;
+            white-space: pre-line;
+        }
+
+        /* 深色主题 */
+        body.dark-theme {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+        }
+
+        body.dark-theme .container {
+            background-color: #2d2d2d;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-theme .header {
+            border-bottom-color: #444;
+        }
+
+        body.dark-theme .back-link {
+            background-color: #3d3d3d;
+            color: #e0e0e0;
+            border-color: #555;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-theme .back-link:hover {
+            background-color: #4d4d4d;
+        }
+
+        body.dark-theme .back-to-top {
+            background-color: #3d3d3d;
+            color: #e0e0e0;
+            border-color: #555;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-theme .back-to-top:hover {
+            background-color: #4d4d4d;
+        }
+
+        body.dark-theme .info-title {
+            color: #e0e0e0;
+            border-bottom-color: #444;
+        }
+
+        body.dark-theme .info-content {
+            color: #b0b0b0;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .char-display {
+                font-size: 48px;
+            }
+
+            .back-link {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="fixed-buttons">
+        <a href="index.html" class="back-link">返回练习</a>
+        <a href="#" class="back-to-top" id="back-to-top">回到顶部</a>
+    </div>
+
+    <div class="container">
+        <div class="header">
+        </div>
+        
+        <div class="char-header">
+            <div class="char-display" id="char-display"></div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-title">拼音与基本信息</div>
+            <div class="info-content" id="pinyin-info"></div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-title">字义解释</div>
+            <div class="info-content" id="definition-info"></div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-title">详细解释</div>
+            <div class="info-content" id="explanation-info"></div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-title">英语翻译</div>
+            <div class="info-content" id="english-info"></div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-title">反义词</div>
+            <div class="info-content" id="antonym-info"></div>
+        </div>
+    </div>
+
+    <script>
+        // 从localStorage获取详细信息
+        const charDetail = JSON.parse(localStorage.getItem('charDetail') || '{}');
+
+        // 填充页面内容
+        function populateContent() {
+            if (!charDetail.char) {
+                document.getElementById('char-display').textContent = '未找到汉字信息';
+                return;
+            }
+
+            // 显示汉字
+            document.getElementById('char-display').textContent = charDetail.char;
+
+            // 填充拼音与基本信息
+            let pinyinHtml = '';
+            if (Array.isArray(charDetail.pinyin)) {
+                charDetail.pinyin.forEach((pinyin, index) => {
+                    pinyinHtml += pinyin;
+                    if (index < charDetail.pinyin.length - 1) {
+                        pinyinHtml += '\n';
+                    }
+                });
+            } else {
+                pinyinHtml = charDetail.pinyin;
+            }
+            
+            if (charDetail.strokes) {
+                pinyinHtml += '\n笔画: ' + charDetail.strokes;
+            }
+            if (charDetail.radicals) {
+                pinyinHtml += '\n部首: ' + charDetail.radicals;
+            }
+            if (charDetail.oldword && charDetail.oldword !== charDetail.char) {
+                pinyinHtml += '\n旧字: ' + charDetail.oldword;
+            }
+            document.getElementById('pinyin-info').textContent = pinyinHtml;
+
+            // 填充字义解释
+            let definitionHtml = '';
+            if (charDetail.definition) {
+                if (Array.isArray(charDetail.definition)) {
+                    charDetail.definition.forEach((def, index) => {
+                        definitionHtml += def;
+                        if (index < charDetail.definition.length - 1) {
+                            definitionHtml += '\n';
+                        }
+                    });
+                } else {
+                    definitionHtml = charDetail.definition;
+                }
+            }
+            document.getElementById('definition-info').textContent = definitionHtml;
+
+            // 填充详细解释
+            document.getElementById('explanation-info').textContent = charDetail.explanation || '无详细解释';
+
+            // 填充英语翻译和反义词
+            let englishHtml = '';
+            let antonymHtml = '';
+
+            if (charDetail.more) {
+                const lines = charDetail.more.split('\n');
+                const moreLines = lines.filter(line => line.trim() !== '');
+                
+                moreLines.forEach(line => {
+                    const trimmedLine = line.trim();
+                    // 检测英语部分
+                    if (/[a-zA-Z;\., ]+/.test(trimmedLine) && !trimmedLine.includes('部首') && !trimmedLine.includes('总笔画')) {
+                        englishHtml += trimmedLine + '\n';
+                    }
+                    // 检测反义词部分
+                    else if (trimmedLine.includes('反义') || trimmedLine.includes('反义词')) {
+                        antonymHtml += trimmedLine.replace(/反义(词)?[:：]/, '') + '\n';
+                    }
+                });
+            }
+
+            document.getElementById('english-info').textContent = englishHtml || '无英语翻译';
+            document.getElementById('antonym-info').textContent = antonymHtml || '无反义词';
+        }
+
+        // 应用主题
+        function applyTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+            }
+        }
+
+        // 初始化
+        function init() {
+            applyTheme();
+            populateContent();
+            initBackToTop();
+        }
+
+        // 初始化回到顶部功能
+        function initBackToTop() {
+            const backToTopBtn = document.getElementById('back-to-top');
+            
+            // 点击回到顶部
+            backToTopBtn.onclick = function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            };
+            
+            // 滚动时显示/隐藏回到顶部按钮
+            window.onscroll = function() {
+                if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                    backToTopBtn.style.display = 'block';
+                } else {
+                    backToTopBtn.style.display = 'block'; // 始终显示
+                }
+            };
+        }
+
+        // 页面加载完成后初始化
+        window.onload = init;
+    </script>
+</body>
+</html>

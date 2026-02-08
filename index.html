@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>汉字打字练习</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <h1>汉字打字练习</h1>
+        <p>提升打字速度与准确性，学习汉字知识</p>
+        <button id="theme-toggle" class="theme-toggle-btn">🌙 切换主题</button>
+    </div>
+    
+    <div class="container">
+        <!-- 左侧容器（包含汉字信息区和造字术面板） -->
+        <div class="left-container">
+            <!-- 左侧汉字信息区 -->
+            <div class="left-panel">
+                <div class="panel-header">
+                    <div class="icon">📚</div>
+                    <h2>汉字信息</h2>
+                </div>
+                <div id="char-info">
+                <div class="char-display-container">
+                    <div id="current-char">请</div>
+                    <button id="speak-char-btn" class="speak-btn" title="朗读此汉字">🔊</button>
+                </div>
+                <div id="pinyin">qǐng</div>
+                <div id="definition">请求；邀请；聘请；敬辞</div>
+                <div id="phrases"></div>
+            </div>
+            </div>
+            
+            <!-- 造字术面板 -->
+            <div class="formation-panel">
+                <div class="panel-header">
+                    <div class="icon">✍️</div>
+                    <h2>造字术</h2>
+                </div>
+                <div id="character-formation">
+                    <div class="formation-item">
+                        <div class="formation-title">指事</div>
+                        <div class="formation-desc">用象征性符号表示意义</div>
+                    </div>
+                    <div class="formation-item">
+                        <div class="formation-title">象形</div>
+                        <div class="formation-desc">用图形表示事物形状</div>
+                    </div>
+                    <div class="formation-item">
+                        <div class="formation-title">会意</div>
+                        <div class="formation-desc">组合两个或多个字表示新意义</div>
+                    </div>
+                    <div class="formation-item">
+                        <div class="formation-title">形声</div>
+                        <div class="formation-desc">由形旁和声旁组成</div>
+                    </div>
+                    <div class="formation-item">
+                        <div class="formation-title">转注</div>
+                        <div class="formation-desc">同一部首意义相近的字互相解释</div>
+                    </div>
+                    <div class="formation-item">
+                        <div class="formation-title">假借</div>
+                        <div class="formation-desc">借用同音字表示新意义</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 中间练习区 -->
+        <div class="center-panel">
+            <div class="panel-header">
+                <div class="icon">⌨️</div>
+                <h2>打字练习</h2>
+                <div class="panel-actions">
+                    <button id="start-btn" class="btn-primary">开始</button>
+                    <button id="reset-btn" class="btn-secondary">重置</button>
+                </div>
+            </div>
+            <div id="article-selection">
+                <div class="selection-label">选择练习内容</div>
+                <div class="content-tabs">
+                    <button class="tab-btn active" data-type="default">默认</button>
+                    <button class="tab-btn" data-type="poetry">古诗词</button>
+                    <button class="tab-btn" data-type="prose">散文</button>
+                    <button class="tab-btn" data-type="novel">小说</button>
+                    <button class="tab-btn" data-type="inspirational">励志</button>
+                    <button class="tab-btn" data-type="课本">课本</button>
+                </div>
+                <div id="article-list" class="article-list">
+                    <div class="article-list-label">选择文章：</div>
+                    <div class="article-items" id="article-items">
+                        <!-- 文章列表将通过JavaScript动态生成 -->
+                    </div>
+                </div>
+            </div>
+            <div id="practice-area" style="display: none;">
+                <div id="text-display">
+                    <div id="current-line">请你好好学习汉字打字练习</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 右侧统计信息区 -->
+        <div class="right-panel">
+            <div class="panel-header">
+                <div class="icon">📊</div>
+                <h2>详细统计</h2>
+            </div>
+            <div id="stats">
+                <div class="stat-placeholder">
+                    <div class="chart-icon">📈</div>
+                    <p>开始练习后查看详细统计</p>
+                </div>
+                <div class="stat-details" style="display: none;">
+                    <div class="stat-item">
+                        <span class="stat-label">输入字数：</span>
+                        <span id="char-count">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">正确率：</span>
+                        <span id="accuracy">0%</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">用时：</span>
+                        <span id="time-elapsed">0s</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到顶部按钮 -->
+    <button id="back-to-top" class="back-to-top-btn">↑</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
