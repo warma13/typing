@@ -74,19 +74,15 @@
                 <div class="icon">⌨️</div>
                 <h2>打字练习</h2>
                 <div class="panel-actions">
+                    <button id="read-btn" class="btn-secondary">阅读</button>
                     <button id="start-btn" class="btn-primary">开始</button>
                     <button id="reset-btn" class="btn-secondary">重置</button>
                 </div>
             </div>
             <div id="article-selection">
                 <div class="selection-label">选择练习内容</div>
-                <div class="content-tabs">
-                    <button class="tab-btn active" data-type="default">默认</button>
-                    <button class="tab-btn" data-type="poetry">古诗词</button>
-                    <button class="tab-btn" data-type="prose">散文</button>
-                    <button class="tab-btn" data-type="novel">小说</button>
-                    <button class="tab-btn" data-type="inspirational">励志</button>
-                    <button class="tab-btn" data-type="课本">课本</button>
+                <div class="content-tabs" id="content-tabs">
+                    <!-- 标签页将通过JavaScript动态生成 -->
                 </div>
                 <div id="article-list" class="article-list">
                     <div class="article-list-label">选择文章：</div>
@@ -98,6 +94,16 @@
             <div id="practice-area" style="display: none;">
                 <div id="text-display">
                     <div id="current-line">请你好好学习汉字打字练习</div>
+                </div>
+            </div>
+            <div id="read-area" style="display: none;">
+                <div id="read-content" class="read-content">
+                    <!-- 阅读内容将通过JavaScript动态生成 -->
+                </div>
+                <div class="read-controls" style="margin-top: 20px; text-align: center;">
+                    <button id="read-prev-btn" class="btn-secondary">上一页</button>
+                    <button id="read-next-btn" class="btn-secondary">下一页</button>
+                    <button id="exit-read-btn" class="btn-secondary">退出阅读</button>
                 </div>
             </div>
         </div>
@@ -127,6 +133,10 @@
                         <span id="time-elapsed">0s</span>
                     </div>
                 </div>
+                <div class="page-controls" style="margin-top: 20px; text-align: center;">
+                    <button id="prev-page-btn" class="btn-secondary" disabled>上一页</button>
+                    <button id="next-page-btn" class="btn-secondary" disabled>下一页</button>
+                </div>
             </div>
         </div>
     </div>
@@ -134,6 +144,7 @@
     <!-- 回到顶部按钮 -->
     <button id="back-to-top" class="back-to-top-btn">↑</button>
 
-    <script src="script.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+        <script src="script.js"></script>
+    </body>
 </html>
